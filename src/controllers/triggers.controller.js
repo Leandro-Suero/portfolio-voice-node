@@ -15,7 +15,7 @@ export async function getTriggers(req, res) {
 
 export async function getUserTriggers(req, res) {
   try {
-    const triggers = await triggerService.getTriggers(req.params.userId);
+    const triggers = await triggerService.getUserTriggers(req.params.userId);
     return res.json({
       data: triggers.rows,
       total: triggers.count,
