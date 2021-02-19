@@ -20,7 +20,7 @@ app.set("json spaces", 4);
 const corsOptions = {
   origin: "https://evil-assistant.netlify.app/",
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
