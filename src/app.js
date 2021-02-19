@@ -17,22 +17,9 @@ app.set("port", process.env.PORT || 4000);
 app.set("json spaces", 4);
 
 // Middlewares
-var whitelist = [
-  "https://evil-assistant.netlify.app/",
-  "https://evil-assistant.netlify.app",
-];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+const corsOptions = {
+  origin: "https://evil-assistant.netlify.app",
 };
-// const corsOptions = {
-//   origin: "https://evil-assistant.netlify.app/",
-// };
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("dev"));
