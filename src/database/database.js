@@ -3,6 +3,9 @@ import Sequelize from "sequelize";
 const sequelizeOptions = {
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT,
+  native: true,
+  ssl: true,
+  dialectOptions: { ssl: true },
   pool: {
     max: 5,
     min: 0,
