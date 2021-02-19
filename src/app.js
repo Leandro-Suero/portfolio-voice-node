@@ -18,7 +18,7 @@ app.set("json spaces", 4);
 
 // Middlewares
 const corsOptions = {
-  origin: "https://evil-assistant.netlify.app",
+  origin: "https://evil-assistant.netlify.app/",
 };
 app.use(cors(corsOptions));
 app.use(helmet());
