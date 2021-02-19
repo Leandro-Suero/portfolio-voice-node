@@ -40,17 +40,22 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
   const { username, password } = req.body;
-  const userFound = await User.findOne({ where: { username: username } });
-  if (userFound) {
-    return res.status(409).json({ message: "User already exists" });
-  }
-  const newUser = await createUser(req.body);
-  const token = jwt.sign(
-    { id: newUser.id, username: newUser.username },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: 7776000, // 90 days
+  try {
+    const userFound = await User.findOne({ where: { username: username } });
+    if (userFound) {
+      return res.status(409).json({ message: "User already exists" });
     }
-  );
-  res.json({ token });
+    const newUser = await createUser(req.body);
+    const token = jwt.sign(
+      { id: newUser.id, username: newUser.username },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: 7776000, // 90 days
+      }
+    );
+    res.json({ token });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
 };
