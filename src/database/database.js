@@ -20,7 +20,7 @@ const sequelizeOptions = {
 let sequelize = {};
 if (process.env.DATABASE_URL) {
   //heroku postgresql config
-  sequelizeOptionsProd = {
+  const sequelizeOptionsProd = {
     ...sequelizeOptions,
     dialectOptions: {
       ssl: {
