@@ -3,12 +3,7 @@ import Sequelize from "sequelize";
 const sequelizeOptions = {
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+  dialectOptions: {},
   pool: {
     max: 5,
     min: 0,
@@ -25,7 +20,16 @@ const sequelizeOptions = {
 let sequelize = {};
 if (process.env.DATABASE_URL) {
   //heroku postgresql config
-  sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
+  sequelizeOptionsProd = {
+    ...sequelizeOptions,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  };
+  sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptionsProd);
 } else {
   //local env postgres, dev
   sequelize = new Sequelize(
